@@ -16,8 +16,8 @@
 %    e.g. no duplicate solutions to set_member(1, [1,2,3,1]).
 % 2. No extra solutions for set_member(1, [1, X]) (cf. SWI Prolog implementation)
 % 3. set_member(1, [1,2,3]) does not leave an extra choicepoint (cf. SWI Prolog implementation)
-% 4. set_member(1, [X]) succeeds leaving no extra choicepoints (cf. memberd from "Indexing dif/2" by Neumerkel/Kral)
-% 5. set_member(X, [Y]) succeeds leaving no extra choicepoints (cf. memberd from "Indexing dif/2" by Neumerkel/Kral)
+% 4. set_member(1, [X]) succeeds leaving no extra choicepoints (cf. memberd/2 from "Indexing dif/2" by Neumerkel/Kral)
+% 5. set_member(X, [Y]) succeeds leaving no extra choicepoints (cf. memberd/2 from "Indexing dif/2" by Neumerkel/Kral)
 %
 % This new implementation was inspired by Neumerkel and Kral's excellent paper "Indexing dif/2"
 % which introduced the fundamental tool: if_/3.
