@@ -22,9 +22,8 @@
 % This new implementation was inspired by Neumerkel and Kral's excellent paper "Indexing dif/2"
 % which introduced the fundamental tool: if_/3.
 set_member(X, [Y|Ys]) :-
-  if_(X == Y, true,
-    if_(Ys = [], X = Y,
-      if_(X = Y, true, set_member(X, Ys)))). 
+  if_(Ys = [], X = Y,
+    if_(X = Y, true, set_member(X, Ys))). 
 
 
 % Under consideration for this library: 
