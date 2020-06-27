@@ -4,12 +4,11 @@
 
 %! set_member(+X, +Xs:list) is semidet.
 %! set_member(+X, -Xs:list) is multi.
-%! set_member(-X, +Xs:list) is multi.
+%! set_member(-X, +Xs:list) is nondet.
 %! set_member(-X, -Xs:list) is multi.
 %
-% True whenever `X` is a member of the underlying set of the list `Xs`. The -/+ mode assumes that 
-% `Xs` is non-empty to have solutions, and only distinct elements of the underlying set are
-% enumerated.
+% True whenever `X` is a member of the underlying set of the list `Xs`. Only distinct elements of 
+% the underlying set are enumerated.
 %
 % This definition corrects for several deficiencies in other implementations of member/2:
 % 1. Proper set-theoretic semantics for the -/+ mode (cf. SWI Prolog implementation)
