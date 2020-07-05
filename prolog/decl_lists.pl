@@ -22,26 +22,41 @@
 % which introduced the fundamental tool: if_/3.
 set_member(X, [Y|Ys]) :-
   if_(Ys = [], X = Y,
-    if_(X = Y, true, set_member(X, Ys))). 
+    if_(X = Y, true, set_member(X, Ys))).
 
+%! is_a_list(+Xs:list) is semidet.
+%! is_a_list(-Xs:list) is multi.
+%
+% True whenever `Xs` is a list. Supports both + and - modes (cf. SWI Prolog's is_list/1).
+is_a_list(Xs) :-
+  if_(Xs = [], true,
+      (Xs = [_|Ys], is_a_list(Ys))).
+
+ 
+% Helper predicate
+plus(X, Y, Z) :- Z #= X + Y.
+ 
+%! list_sum(++Xs:numlist, +X:number) is semidet.
+%! list_sum(++Xs:numlist, -X:number) is det.
+%
+%! list_sum(+Xs:intlist, +X:int) is semidet.
+%! list_sum(+Xs:intlist, -X:int) is det.
+%! list_sum(-Xs:intlist, +X:int) is multi.
+%! list_sum(-Xs:intlist, -X:int) is multi.
+%
+% True whenever a list of numbers `Xs` sums to `X`. This predicate supports all modes 
+% (cf. SWI Prolog's sum_list/2), but only works for integers when `Xs` is not ground. This is 
+% primarily because the implementation relies on clp(Z). More general domains are not supported
+% at this time.
+list_sum(Xs, X) :-
+  (  ground(Xs)
+  -> sum_list(Xs, X)
+  ;  is_a_list(Xs),
+     Xs ins inf..sup,
+     foldl(plus, Xs, 0, X)
+   ).
 
 % Under consideration for this library: 
-%prefix(?Part, ?Whole)
-%select(?Elem, ?List1, ?List2)
-%nextto(?X, ?Y, ?List)
-    %True if Y directly follows X in List.
-%[det]delete(+List1, @Elem, -List2)
-%nth0(?Index, ?List, ?Elem)
-%nth1(?Index, ?List, ?Elem)
-%[det]nth0(?N, ?List, ?Elem, ?Rest)
-%[det]nth1(?N, ?List, ?Elem, ?Rest)
-    %As nth0/4, but counting starts at 1.
-%last(?List, ?Last)
-%[semidet]proper_length(@List, -Length)
-%same_length(?List1, ?List2)
-%reverse(?List1, ?List2)
-%[nondet]permutation(?Xs, ?Ys)
-%[det]flatten(+NestedList, -FlatList)
 %[semidet]max_member(-Max, +List)
 %[semidet]min_member(-Min, +List)
 %[det]sum_list(+List, -Sum)
