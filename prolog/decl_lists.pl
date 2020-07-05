@@ -54,7 +54,7 @@ list_sum(Xs, X) :-
   ;  is_a_list(Xs),
      Xs ins inf..sup,
      foldl(plus, Xs, 0, X)
-   ).
+  ).
 
 % Under consideration for this library: 
 %[semidet]max_member(-Max, +List)
